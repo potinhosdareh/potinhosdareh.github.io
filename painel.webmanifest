@@ -1,0 +1,13 @@
+{
+ "name": "Potinhos da Reh – Minha loja",
+ "short_name": "Minha loja",
+ "start_url": "./#admin",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#4a2a1f",
+ "theme_color": "#4a2a1f",
+ "icons": [
+  {"src": "icon-192_2.png", "sizes": "192x192", "type": "image/png"},
+  {"src": "icon-512_2.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+ ]
+}
