@@ -1,0 +1,49 @@
+{
+ "ocultos": [
+  "oferta2",
+  "compre2",
+  "kinderprem",
+  "kinder",
+  "premmorango",
+  "copudim",
+  "ferrero",
+  "branca",
+  "banoffee",
+  "bmorango",
+  "bouro",
+  "buva",
+  "minimorango",
+  "miniuva",
+  "bolobrig",
+  "bolochoconinho",
+  "boloninho",
+  "bolomorango",
+  "petisqueira",
+  "travessa"
+ ],
+ "opcoesOff": {
+  "sabor": [
+   "Ninho trufado",
+   "Um sabor de cada"
+  ],
+  "cremes": [
+   "Creme Ninho",
+   "Creme de chocolate"
+  ],
+  "desejacreme": [
+   "Creme de chocolate 50%",
+   "Creme de leite Ninho"
+  ],
+  "acomp": [
+   "Choco Power",
+   "Jujuba colorida"
+  ],
+  "cremeopcao": [
+   "Creme de chocolate",
+   "Creme de Ninho"
+  ],
+  "bebida": [
+   "Água Vitta Saúde 510 ml"
+  ]
+ }
+}
