@@ -518,10 +518,13 @@ $("send").onclick = e => {
   if (v("quando")) msg += `\n📅 Para: ${v("quando")}`;
   if (v("obs")) msg += `\n📝 Obs.: ${v("obs")}`;
   msg += `\n💳 Pagamento: Pix (pago antes da entrega)`;
-  if (CHAVE_PIX) msg += `\n🔑 Chave Pix (celular): ${CHAVE_PIX}`;
-  e.currentTarget.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
   const valorPix = fr == null ? null : Math.round((t + fr) * 100) / 100;
   PIX_COPIA_COLA = pixCodigo(PIX_CHAVE, PIX_NOME, PIX_CIDADE, valorPix, "PED" + cod);
+  msg += `\n\n💠 *Como pagar:* faça um Pix para a chave (celular) *${CHAVE_PIX}*${valorPix ? ` no valor de *${brl(valorPix)}*` : " (o valor final a loja confirma aqui)"}.`;
+  msg += `\nOu use o Pix copia e cola abaixo${valorPix ? " (já com o valor)" : ""}:`;
+  msg += `\n\n${PIX_COPIA_COLA}`;
+  msg += `\n\n📎 *Depois de pagar, envie o comprovante aqui* 👇`;
+  e.currentTarget.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
   if ($("okQR")) { $("okQR").innerHTML = QR.svg(PIX_COPIA_COLA, 190); $("okCopiar").textContent = "Copiar código Pix";
     $("okValor").innerHTML = `Valor a pagar: <b>${brl(t + (fr || 0))}${fr == null ? " + entrega" : ""}</b>`;
     $("okDica").textContent = valorPix ? "O valor já vem preenchido no app do banco. Se a loja ajustar a taxa de entrega, ela avisa no WhatsApp." : "Digite o valor no app do banco depois que a loja confirmar a taxa de entrega."; }
