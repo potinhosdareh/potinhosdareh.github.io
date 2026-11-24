@@ -1,13 +1,1 @@
-{
- "name": "Potinhos da Reh – Minha loja",
- "short_name": "Minha loja",
- "start_url": "./#admin",
- "scope": "./",
- "display": "standalone",
- "background_color": "#4a2a1f",
- "theme_color": "#4a2a1f",
- "icons": [
-  {"src": "icon-192_2.png", "sizes": "192x192", "type": "image/png"},
-  {"src": "icon-512_2.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
- ]
-}
+{"name":"Potinhos da Reh","short_name":"Minha loja","start_url":"./#admin","scope":"./","display":"standalone","background_color":"#38190d","theme_color":"#38190d","icons":[{"src":"icone-loja-192.png","sizes":"192x192","type":"image/png","purpose":"any"},{"src":"icone-loja-512.png","sizes":"512x512","type":"image/png","purpose":"any"},{"src":"icone-loja-maskable.png","sizes":"512x512","type":"image/png","purpose":"maskable"}]}
