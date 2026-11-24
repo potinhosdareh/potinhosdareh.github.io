@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#4a2a1f">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icone-loja-192.png"><link rel="icon" href="icone-loja-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <title>Potinhos da Reh · Doceria</title>
@@ -590,7 +590,7 @@ let pedidoInstalar = null;
 addEventListener("beforeinstallprompt", e => { e.preventDefault(); pedidoInstalar = e; const b = $("abInstalar"); if (b) b.style.display = ""; });
 function prepararApp() {
   if (!document.querySelector('link[rel=manifest]')) {
-    const l = document.createElement("link"); l.rel = "manifest"; l.href = "painel.webmanifest"; document.head.appendChild(l);
+    const l = document.createElement("link"); l.rel = "manifest"; l.href = "painel.webmanifest?v=2"; document.head.appendChild(l);
     const m = document.createElement("meta"); m.name = "apple-mobile-web-app-title"; m.content = "Minha loja"; document.head.appendChild(m);
   }
   if (NO_APP) $("abSair").style.display = "none";
