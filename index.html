@@ -90,6 +90,7 @@ h2{font-family:Georgia,serif;color:var(--choc);font-size:1.5rem;margin:26px 0 12
 .price{font-weight:700;color:var(--choc);font-size:1.05rem}
 .pr{display:flex;flex-direction:column}
 .ifd{font-size:.78rem;color:var(--muted);font-weight:500}.ifd s{color:#b0a296}
+.fechado{max-width:728px;margin:14px auto 0;background:#fde8e6;border:2px solid #c0392b;border-radius:14px;padding:12px 14px;color:#9b1c12;font-weight:700;text-align:center;line-height:1.4}.fechado small{display:block;font-weight:400;color:#7a2a22;margin-top:4px}#abLoja.fech{background:#c0392b!important}
 .promo{max-width:728px;margin:14px auto 0;background:#fff3d6;border:1px dashed #d9a441;border-radius:14px;padding:10px 14px;color:var(--berry);font-weight:700;font-size:.9rem;text-align:center}
 .promo b{color:var(--berry)}
 .falta{background:#eaf7ee;color:#17693a;border-radius:10px;padding:8px 12px;font-size:.88rem;margin-top:10px;display:none}
@@ -155,6 +156,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:30px 16px 1
 </header>
 <div class="mchips"><span class="chip">💸 Descontos pedindo pelo site</span><span class="chip">⭐ 4,9 no iFood</span><span class="chip">🛵 Entrega</span><span class="chip">📅 Pedidos agendados</span><div class="soc m"><a href="https://www.instagram.com/potinhosdareh/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Instagram</a><a href="https://wa.me/5521993881851" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9 9.5c.3 2 2.2 4.2 4.5 4.8l1.2-1.2 2 1-.6 1.6c-3.6.4-7.6-3.4-7.4-7.2l1.6-.6 1 2z" fill="currentColor" stroke="none"/></svg>WhatsApp</a></div></div>
 <nav id="nav"></nav>
+<div class="fechado" id="fechado" hidden></div>
 <div class="promo">Pedindo pelo site: descontos no cardápio · metade do frete acima de <span style="white-space:nowrap">R$ 50</span> · frete grátis acima de <span style="white-space:nowrap">R$ 80</span></div>
 <main id="menu"></main>
 <div class="note" style="max-width:728px;margin:18px auto 0">💬 Monte seu pedido aqui e ele chega prontinho no nosso WhatsApp. Lá a gente confirma tudo e combina o horário da entrega.</div>
@@ -190,7 +192,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:30px 16px 1
 </div>
 
 <div class="sheet" id="edSheet" style="z-index:45"><div class="panel" id="edPanel"></div></div>
-<div id="adminBar"><b>Modo edição</b><span id="abStatus"></span><span class="abBtns"><button id="abInstalar" style="display:none">📲 Instalar</button><button id="abPedidos">Pedidos</button><button id="abAcabou">Ingrediente acabou</button><button id="abSalvar">Salvar no site</button><button id="abSair">Sair</button></span></div>
+<div id="adminBar"><b>Modo edição</b><span id="abStatus"></span><span class="abBtns"><button id="abInstalar" style="display:none">📲 Instalar</button><button id="abLoja">🟢 Loja aberta</button><button id="abPedidos">Pedidos</button><button id="abAcabou">Ingrediente acabou</button><button id="abSalvar">Salvar no site</button><button id="abSair">Sair</button></span></div>
 <div class="sheet ok" id="okBox"><div class="panel" style="text-align:center;padding:28px 20px">
   <div style="font-size:3rem">✅</div><h2 style="margin:6px 0">Pedido enviado!</h2>
   <p style="color:var(--muted)">Agora é só <b>enviar a mensagem</b> que abriu no WhatsApp. A Potinhos da Reh confirma seu pedido por lá. 🍓</p>
@@ -199,8 +201,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:30px 16px 1
   <p style="margin-top:10px"><a href="#" id="okVolta" style="color:var(--choc)">Voltar para a sacola</a></p></div></div>
 <div class="sheet opt" id="opt"><div class="panel" id="optPanel"></div></div>
 
-<script>
-// QR code mínimo (modo byte, correção M) — baseado no algoritmo público do Project Nayuki (MIT)
+<script>// QR code mínimo (modo byte, correção M) — baseado no algoritmo público do Project Nayuki (MIT)
 const QR = (() => {
   const ECC = [-1,10,16,26,18,24,16,18,22,22,26,30,22,22,24,24,28,28,26,26,26,26,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28];
   const BLK = [-1,1,1,1,2,2,4,4,4,5,5,5,8,9,9,10,10,11,13,14,16,17,17,18,20,21,23,25,26,28,29,31,33,35,37,38,40,43,45,47,49];
@@ -399,7 +400,14 @@ const opsOn = g => g.ops.filter(o => !o[2]);
 const gruposCliente = it => (it.grupos || []).filter(g => opsOn(g).length);
 const achar = id => { for (const c of LOJA.cats) for (const it of c.items) if (it.id == id) return {c, it}; };
 
+function avisoFechado() {
+  const f = $("fechado"); if (!f) return;
+  f.hidden = !LOJA.fechada;
+  if (LOJA.fechada) f.innerHTML = `🔴 Estamos fechados no momento${LOJA.avisoFechada ? ": " + esc(LOJA.avisoFechada) : ""}<small>Você pode agendar seu pedido: preencha o campo "Para quando" no carrinho.</small>`;
+  const b = $("abLoja"); if (b) { b.textContent = LOJA.fechada ? "🔴 Loja fechada" : "🟢 Loja aberta"; b.classList.toggle("fech", !!LOJA.fechada); }
+}
 function build() {
+  avisoFechado();
   menu.innerHTML = ""; nav.innerHTML = "";
   let primeira = true;
   LOJA.cats.forEach((c, ci) => {
@@ -508,7 +516,9 @@ $("sheet").onclick = e => { if (e.target.id == "sheet") e.target.classList.remov
 
 $("send").onclick = e => {
   const v = id => $(id).value.trim(), err = $("err");
-  if (!v("nome") || !v("end") || !v("bairro")) { e.preventDefault(); err.style.display = "block"; return; }
+  if (!v("nome") || !v("end") || !v("bairro")) { e.preventDefault(); err.textContent = "Preencha seu nome, endereço e bairro, por favor 🙂"; err.style.display = "block"; return; }
+  if (LOJA.fechada && !v("quando")) { e.preventDefault(); err.textContent = "Estamos fechados agora 🙁 Preencha \"Para quando\" para agendar o seu pedido."; err.style.display = "block"; $("quando").focus(); return; }
+  err.textContent = "Preencha seu nome, endereço e bairro, por favor 🙂";
   err.style.display = "none";
   let t = 0; const ls = cart.map(l => { t += linha(l); return `• ${l.q}x ${l.nome} — ${brl(linha(l))}` + chText(l).map(x => `\n   ↳ ${x}`).join("") + (l.obs ? `\n   ↳ Obs.: ${l.obs}` : ""); });
   const pg = document.querySelector("input[name=pg]:checked").value, bb = v("bairro"), FF = freteDe(bb, t), fr = FF.cobrado;
@@ -523,13 +533,22 @@ $("send").onclick = e => {
   msg += `\n\n💠 *Como pagar:* faça um Pix para a chave (celular) *${CHAVE_PIX}*${valorPix ? ` no valor de *${brl(valorPix)}*` : " (o valor final a loja confirma aqui)"}.`;
   msg += `\nOu use o Pix copia e cola abaixo${valorPix ? " (já com o valor)" : ""}:`;
   msg += `\n\n${PIX_COPIA_COLA}`;
+  const COPIOU = copiarAgora(PIX_COPIA_COLA);
+  if (COPIOU) msg += `\n_(o código já foi copiado no seu celular: abra o app do banco → Pix copia e cola → Colar)_`;
   msg += `\n\n📎 *Depois de pagar, envie o comprovante aqui* 👇`;
   e.currentTarget.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
-  if ($("okQR")) { $("okQR").innerHTML = QR.svg(PIX_COPIA_COLA, 190); $("okCopiar").textContent = "Copiar código Pix";
+  if ($("okQR")) { $("okQR").innerHTML = QR.svg(PIX_COPIA_COLA, 190); $("okCopiar").textContent = COPIOU ? "✓ Código Pix já copiado! Copiar de novo" : "Copiar código Pix";
     $("okValor").innerHTML = `Valor a pagar: <b>${brl(t + (fr || 0))}${fr == null ? " + entrega" : ""}</b>`;
     $("okDica").textContent = valorPix ? "O valor já vem preenchido no app do banco. Se a loja ajustar a taxa de entrega, ela avisa no WhatsApp." : "Digite o valor no app do banco depois que a loja confirmar a taxa de entrega."; }
   setTimeout(() => { $("sheet").classList.remove("open"); $("okBox").classList.add("open"); }, 400);
 };
+function copiarAgora(txt) {
+  let ok = false;
+  try { const ta = document.createElement("textarea"); ta.value = txt; ta.setAttribute("readonly", ""); ta.style.cssText = "position:fixed;top:0;left:0;opacity:0";
+    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, txt.length); ok = document.execCommand("copy"); ta.remove(); } catch (e) {}
+  try { if (navigator.clipboard) navigator.clipboard.writeText(txt).catch(() => {}); ok = true; } catch (e) {}
+  return ok;
+}
 $("okFim").onclick = () => { cart.length = 0; render(); $("okBox").classList.remove("open"); scrollTo(0, 0); };
 $("okVolta").onclick = e => { e.preventDefault(); $("okBox").classList.remove("open"); $("sheet").classList.add("open"); };
 if (CHAVE_PIX) $("okPix").innerHTML = `<div class="pixpay"><b>Pague com Pix</b><p id="okValor"></p>
@@ -631,6 +650,19 @@ $("abSalvar").onclick = async () => {
 $("abSair").onclick = () => { if (SUJO && !confirmar("Sair sem salvar?")) return; location.hash = ""; location.reload(); };
 const confirmar = m => window.confirm ? (() => { try { return confirm(m); } catch (e) { return true; } })() : true;
 $("abAcabou").onclick = abrirAcabou;
+$("abLoja").onclick = () => {
+  if (LOJA.fechada) {
+    abrirEd(`<h2 style="margin-top:0">Abrir a loja?</h2><p style="color:var(--muted)">Os clientes voltam a poder fazer pedidos na hora.</p>
+     <button class="send bt" id="lojaAbrir">🟢 Abrir a loja agora</button>`);
+    $("lojaAbrir").onclick = () => { LOJA.fechada = false; fecharEd(); avisoFechado(); $("abSalvar").onclick(); };
+  } else {
+    abrirEd(`<h2 style="margin-top:0">Fechar a loja?</h2><p style="color:var(--muted)">O site mostra um aviso de fechado e só aceita pedidos <b>agendados</b> (com o campo "Para quando" preenchido).</p>
+     <label style="display:block;margin:12px 0 6px;font-weight:700">Recado para os clientes (opcional)</label>
+     <input id="lojaMsg" placeholder="Ex.: voltamos amanhã às 14h" value="${esc(LOJA.avisoFechada || "")}" style="width:100%;padding:12px;border-radius:12px;border:1px solid #d8c8b8;font:inherit">
+     <button class="send bt" id="lojaFechar" style="background:#c0392b">🔴 Fechar a loja agora</button>`);
+    $("lojaFechar").onclick = () => { LOJA.fechada = true; LOJA.avisoFechada = $("lojaMsg").value.trim(); fecharEd(); avisoFechado(); $("abSalvar").onclick(); };
+  }
+};
 $("abPedidos").onclick = abrirPedidos;
 addEventListener("beforeunload", e => { if (ADMIN && SUJO) { e.preventDefault(); e.returnValue = ""; } });
 
@@ -817,7 +849,6 @@ function desenharPedidos(mes) {
 })();
 addEventListener("hashchange", () => { if (location.hash == "#admin" && !ADMIN) entrarAdmin(); });
 }
-
 </script>
 </body>
 </html>
