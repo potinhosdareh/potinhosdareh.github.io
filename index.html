@@ -536,7 +536,7 @@ $("send").onclick = e => {
   const COPIOU = copiarAgora(PIX_COPIA_COLA);
   if (COPIOU) msg += `\n_(o código já foi copiado no seu celular: abra o app do banco → Pix copia e cola → Colar)_`;
   msg += `\n\n📎 *Depois de pagar, envie o comprovante aqui* 👇`;
-  e.currentTarget.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  e.currentTarget.href = `https://api.whatsapp.com/send?phone=${WHATSAPP}&text=${encodeURIComponent(msg)}`;
   if ($("okQR")) { $("okQR").innerHTML = QR.svg(PIX_COPIA_COLA, 190); $("okCopiar").textContent = COPIOU ? "✓ Código Pix já copiado! Copiar de novo" : "Copiar código Pix";
     $("okValor").innerHTML = `Valor a pagar: <b>${brl(t + (fr || 0))}${fr == null ? " + entrega" : ""}</b>`;
     $("okDica").textContent = valorPix ? "O valor já vem preenchido no app do banco. Se a loja ajustar a taxa de entrega, ela avisa no WhatsApp." : "Digite o valor no app do banco depois que a loja confirmar a taxa de entrega."; }
